@@ -29,7 +29,7 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> quizScore = [];
 
   QuizBrain quizBrain = QuizBrain();
-  int questionNumber = 0;
+  // int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.getQuestionText(questionNumber),
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -67,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getAnswer(questionNumber);
+                bool correctAnswer = quizBrain.getAnswer();
 
                 if (correctAnswer == true) {
                   print('Correct answer!');
@@ -75,11 +75,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizBrain.getCount() - 1) {
-                    questionNumber = 0;
-                  } else {
-                    questionNumber++;
-                  }
+                  quizBrain.nextQuestion();
                   if (correctAnswer == true) {
                     quizScore.add(
                       Icon(
@@ -113,7 +109,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getAnswer(questionNumber);
+                bool correctAnswer = quizBrain.getAnswer();
 
                 if (correctAnswer == false) {
                   print('Correct answer!');
@@ -121,11 +117,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizBrain.getCount() - 1) {
-                    questionNumber = 0;
-                  } else {
-                    questionNumber++;
-                  }
+                  quizBrain.nextQuestion();
                   if (correctAnswer == false) {
                     quizScore.add(
                       Icon(
