@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:quizzler/question.dart';
 import 'package:quizzler/quizbrain.dart';
 
 void main() => runApp(Quizzler());
@@ -45,7 +43,8 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(questionNumber),
+                // quizBrain.questionBank[questionNumber].questionText,
                 //quizQuestions[questionNumber],
                 //quizQuestions.elementAt(Random().nextInt(3)),
                 textAlign: TextAlign.center,
@@ -71,8 +70,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    quizBrain.questionBank[questionNumber].answer;
+                bool correctAnswer = quizBrain.getAnswer(questionNumber);
+                // bool correctAnswer = quizBrain.questionBank[questionNumber].answer;
                 // bool correctAnswer = answers[questionNumber];
                 if (correctAnswer == true) {
                   print('Correct answer!');
@@ -80,7 +79,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizBrain.questionBank.length - 1) {
+                  if (questionNumber >= quizBrain.getCount() - 1) {
                     questionNumber = 0;
                   } else {
                     questionNumber++;
@@ -118,8 +117,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer =
-                    quizBrain.questionBank[questionNumber].answer;
+                bool correctAnswer = quizBrain.getAnswer(questionNumber);
+                // bool correctAnswer = quizBrain.questionBank[questionNumber].answer;
                 // bool correctAnswer = answers[questionNumber];
                 if (correctAnswer == false) {
                   print('Correct answer!');
@@ -127,7 +126,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizBrain.questionBank.length - 1) {
+                  if (questionNumber >= quizBrain.getCount() - 1) {
                     questionNumber = 0;
                   } else {
                     questionNumber++;
