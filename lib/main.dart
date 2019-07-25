@@ -29,7 +29,29 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> quizScore = [];
 
   QuizBrain quizBrain = QuizBrain();
-  // int questionNumber = 0;
+
+  checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getAnswer();
+
+    setState(() {
+      quizBrain.nextQuestion();
+      if (userPickedAnswer == correctAnswer) {
+        quizScore.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        quizScore.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,31 +89,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getAnswer();
-
-                if (correctAnswer == true) {
-                  print('Correct answer!');
-                } else {
-                  print('Wrong answer!');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                  if (correctAnswer == true) {
-                    quizScore.add(
-                      Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
-                  } else {
-                    quizScore.add(
-                      Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                  }
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -109,31 +107,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = quizBrain.getAnswer();
-
-                if (correctAnswer == false) {
-                  print('Correct answer!');
-                } else {
-                  print('Wrong answer!');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                  if (correctAnswer == false) {
-                    quizScore.add(
-                      Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
-                  } else {
-                    quizScore.add(
-                      Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                  }
-                });
+                checkAnswer(false);
               },
             ),
           ),
