@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:quizzler/question.dart';
+import 'package:quizzler/quizbrain.dart';
 
 void main() => runApp(Quizzler());
 
@@ -29,26 +30,19 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> quizScore = [];
 
-  static List<String> quizQuestions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
-  ];
+  // static List<String> quizQuestions = [
+  //   'You can lead a cow down stairs but not up stairs.',
+  //   'Approximately one quarter of human bones are in the feet.',
+  //   'A slug\'s blood is green.',
+  // ];
 
-  static List<bool> answers = [
-    false,
-    true,
-    true,
-  ];
+  // static List<bool> answers = [
+  //   false,
+  //   true,
+  //   true,
+  // ];
 
-  List<Question> questionBank = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximately one quarter of human bones are in the feet.',
-        a: true),
-    Question(q: 'A slug\'s blood is green.', a: true),
-  ];
-
+  QuizBrain quizBrain = QuizBrain();
   int questionNumber = 0;
 
   @override
@@ -63,7 +57,8 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizQuestions[questionNumber],
+                quizBrain.questionBank[questionNumber].questionText,
+                //quizQuestions[questionNumber],
                 //quizQuestions.elementAt(Random().nextInt(3)),
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -88,14 +83,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer =
+                    quizBrain.questionBank[questionNumber].answer;
+                // bool correctAnswer = answers[questionNumber];
                 if (correctAnswer == true) {
                   print('Correct answer!');
                 } else {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizQuestions.length - 1) {
+                  if (questionNumber >= quizBrain.questionBank.length - 1) {
                     questionNumber = 0;
                   } else {
                     questionNumber++;
@@ -133,14 +130,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer =
+                    quizBrain.questionBank[questionNumber].answer;
+                // bool correctAnswer = answers[questionNumber];
                 if (correctAnswer == false) {
                   print('Correct answer!');
                 } else {
                   print('Wrong answer!');
                 }
                 setState(() {
-                  if (questionNumber >= quizQuestions.length - 1) {
+                  if (questionNumber >= quizBrain.questionBank.length - 1) {
                     questionNumber = 0;
                   } else {
                     questionNumber++;
