@@ -1,4 +1,7 @@
 import 'package:quizzler/question.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter/material.dart';
+import 'main.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
@@ -45,10 +48,24 @@ class QuizBrain {
   }
 
   nextQuestion() {
-    if (_questionNumber >= getCount() - 1) {
-      _questionNumber = 0;
-    } else {
+    if (_questionNumber <= getCount() - 1) {
       _questionNumber++;
+      print('nextQuestion: $_questionNumber');
     }
+  }
+
+  isFinished() {
+    if (_questionNumber >= getCount() - 1) {
+      print('Finished!');
+      print('quesN: $_questionNumber');
+      print('getcount: ${_questionBank.length}');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  reset() {
+    _questionNumber = 0;
   }
 }
